@@ -1,20 +1,17 @@
 {
   "name": "frontend",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "test:unit": "vitest",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix --cache"
+    "dev": "bunx -b vite",
+    "build": "bun run type-check && bun run build-only",
+    "preview": "bunx -b vite preview",
+    "test:unit": "bunx -b vitest",
+    "build-only": "bunx -b vite build",
+    "type-check": "bunx -b vue-tsc --build",
+    "lint": "bunx -b eslint .",
+    "lint:fix": "bunx -b eslint . --fix --cache"
   },
   "dependencies": {
     "@unhead/vue": "^2.1.9",
