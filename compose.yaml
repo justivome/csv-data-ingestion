@@ -1,0 +1,34 @@
+x-network: &network
+  networks:
+    - internal
+
+x-postgres: &postgres_config
+  POSTGRES_USER: ${POSTGRES_USER:-pcb_user}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+  POSTGRES_DB: ${POSTGRES_DB:-pcb_tutorial}
+  POSTGRES_HOST: db
+
+
+services:
+  db:
+    image: postgres:18-alpine
+    env_file:
+      - .env
+    environment:
+      <<: *postgres_config
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pcb_user} -d ${POSTGRES_DB:-pcb_tutorial}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    <<: *network
+
+volumes:
+  postgres_data:
+
+networks:
+  internal:
+    driver: bridge
