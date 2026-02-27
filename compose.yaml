@@ -54,10 +54,21 @@ services:
       migrate:
         condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
+    <<: *network
+  
+  frontend:
+    image: csv-data-ingestion-frontend:${TAG:-latest}
+    build:
+      context: ./frontend
+    ports:
+      - "${PORT:-80}:80"
+    depends_on:
+      - backend
     restart: unless-stopped
     <<: *network
 

@@ -13,11 +13,8 @@ RUN --mount=type=bind,source=uv.lock,target=uv.lock \
 
 COPY . .
 
-RUN pwd
-RUN ls -la
-
 ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8000
 
-CMD ["fastapi", "run", "--workers", "4", "app/main.py"]
+CMD ["fastapi", "run", "--workers", "4", "--port", "8000", "app/main.py"]

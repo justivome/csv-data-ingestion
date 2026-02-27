@@ -11,6 +11,8 @@ function go() {
     router.push(`/hi/${encodeURIComponent(name.value)}`)
 }
 
+const { data } = useFetch('/api/health')
+
 useHead({
   title: 'Home',
 })
@@ -28,6 +30,7 @@ useHead({
     </p>
     <p>
       <em text-sm opacity-75>Description</em>
+      {{ data }}
     </p>
 
     <div py-4 />
