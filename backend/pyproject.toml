@@ -1,0 +1,9 @@
+[project]
+name = "csv-data-ingestion-backend"
+version = "0.1.0"
+description = "Backend for CSV Data Ingestion Platform"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.133.1",
+]
