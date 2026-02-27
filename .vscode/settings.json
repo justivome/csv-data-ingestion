@@ -1,4 +1,131 @@
 {
     "python.venvPath": "backend/.venv",
-    "python.defaultInterpreterPath": "backend/.venv/bin/python"
+    "python.defaultInterpreterPath": "backend/.venv/bin/python",
+    // Default templates for Nuxtr exetension
+    "nuxtr.vueFiles.pages.defaultTemplate": "default.page-template",
+    "nuxtr.vueFiles.script.type": "setup",
+    "nuxtr.vueFiles.firstTag": "script",
+    "nuxtr.openItemsAfterCreation": true,
+    "nuxtr.vueFiles.script.defaultLanguage": "ts",
+    "nuxtr.vueFiles.style.addStyleTag": false,
+    "nuxtr.defaultPackageManager": "Bun",
+    "nuxtr.vueFiles.layouts.defaultTemplate": "default.layout-template",
+    "auto-close-tag.SublimeText3Mode": true,
+    "todo-tree.highlights.useColourScheme": true,
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "alert",
+        "type": "text",
+        "foreground": "red",
+        "background": "white",
+        "opacity": 50,
+        "iconColour": "blue"
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "check-circle",
+            "background": "#4cff8e46",
+            "gutterIcon": true,
+            "type": "text-and-comment"
+        },
+        "FIXME": {
+            "foreground": "black",
+            "icon": "no-entry",
+            "iconColour": "yellow",
+            "background": "#fbff00c3",
+            "gutterIcon": true,
+            "type": "text-and-comment"
+        },
+        "INFO": {
+            "icon": "info",
+            "iconColour": "#4cb1ff",
+            "foreground": "white",
+            "background": "#4cb1ff46",
+            "gutterIcon": true,
+            "type": "text-and-comment"
+        },
+        "NOTE": {
+            "icon": "note",
+            "iconColour": "#35b39a",
+            "foreground": "white",
+            "background": "#35b39a46",
+            "gutterIcon": true,
+            "type": "text-and-comment"
+        }
+    },
+    // Use flat config
+    "eslint.useFlatConfig": true,
+    // Disable the default formatter, use eslint instead
+    "prettier.enable": false,
+    "editor.formatOnSave": true,
+    "[vue]": {
+        "editor.formatOnSave": false,
+        "editor.tabSize": 2
+    },
+    "[typescript]": {
+        "editor.formatOnSave": false,
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.formatOnSave": false
+    },
+    "[jsonc]": {
+        "editor.formatOnSave": false
+    },
+    // Auto fix
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    // Silent the stylistic rules in you IDE, but still auto fix them
+    "eslint.rules.customizations": [
+        {
+            "rule": "style/*",
+            "severity": "off"
+        },
+        {
+            "rule": "*-indent",
+            "severity": "off"
+        },
+        {
+            "rule": "*-spacing",
+            "severity": "off"
+        },
+        {
+            "rule": "*-spaces",
+            "severity": "off"
+        },
+        {
+            "rule": "*-order",
+            "severity": "off"
+        },
+        {
+            "rule": "*-dangle",
+            "severity": "off"
+        },
+        {
+            "rule": "*-newline",
+            "severity": "off"
+        },
+        {
+            "rule": "*quotes",
+            "severity": "off"
+        },
+        {
+            "rule": "*semi",
+            "severity": "off"
+        }
+    ],
+    // Enable eslint for all supported languages
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "html",
+        "markdown",
+        "json",
+        "jsonc",
+        "yaml"
+    ],
+    "todo-tree.tree.scanMode": "workspace",
 }
