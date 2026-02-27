@@ -23,6 +23,41 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+    restart: unless-stopped
+    <<: *network
+
+  migrate:
+    build:
+      context: ./backend
+    command: alembic upgrade head
+    env_file:
+      - .env
+    environment:
+      <<: *postgres_environment
+    depends_on:
+      db:
+        condition: service_healthy
+    <<: *network
+
+  backend:
+    image: csv-data-ingestion-backend:${TAG:-latest}
+    build:
+      context: ./backend
+    env_file:
+      - .env
+    environment:
+      <<: *postgres_environment
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
     <<: *network
 
