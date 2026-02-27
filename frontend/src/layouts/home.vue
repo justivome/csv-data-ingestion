@@ -1,6 +1,7 @@
 <template>
   <main
     px-4 py-10
+    flex flex-col items-center
     text="center gray-700 dark:gray-200"
   >
     <RouterView />

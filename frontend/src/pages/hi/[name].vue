@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Button } from '~/components/ui/button'
+
 const router = useRouter()
 const route = useRoute('/hi/[name]')
 const user = useUserStore()
@@ -14,7 +16,7 @@ useHead({
 <template>
   <div>
     <div text-4xl>
-      <div i-carbon-pedestrian inline-block />
+      <Icon name="i-lucide:user" />
     </div>
     <p>
       Hi {{ user.savedName }}
@@ -37,13 +39,10 @@ useHead({
       </div>
     </template>
 
-    <div>
-      <button
-        m="3 t6" text-sm btn
-        @click="router.back()"
-      >
+    <div mt-6>
+      <Button variant="outline" @click="router.back()">
         Back
-      </button>
+      </Button>
     </div>
   </div>
 </template>

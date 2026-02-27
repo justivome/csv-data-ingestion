@@ -1,23 +1,30 @@
 <script setup lang="ts">
-
+import { Button } from '~/components/ui/button'
 </script>
 
 <template>
-  <nav flex="~ gap-4" text-xl mt-6 justify-center>
-    <RouterLink icon-btn to="/" title="Home">
-      <div i-carbon-campsite />
-    </RouterLink>
+  <nav flex="~ gap-2" mt-6 justify-center>
+    <Button as-child variant="ghost" size="icon">
+      <RouterLink to="/" title="Home">
+        <Icon name="i-lucide:house" />
+      </RouterLink>
+    </Button>
 
-    <button icon-btn title="Toggle dark mode" @click="toggleDark()">
-      <div i="carbon-sun dark:carbon-moon" />
-    </button>
+    <Button variant="ghost" size="icon" title="Toggle dark mode" @click="toggleDark()">
+      <Icon name="i-lucide:sun" class="dark:hidden" />
+      <Icon name="i-lucide:moon" class="hidden dark:block" />
+    </Button>
 
-    <RouterLink icon-btn to="/about" title="About" data-test-id="about">
-      <div i-carbon-dicom-overlay />
-    </RouterLink>
+    <Button as-child variant="ghost" size="icon">
+      <RouterLink to="/about" title="About" data-test-id="about">
+        <Icon name="i-lucide:info" />
+      </RouterLink>
+    </Button>
 
-    <a icon-btn rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank" title="GitHub">
-      <div i-carbon-logo-github />
-    </a>
+    <Button as-child variant="ghost" size="icon">
+      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank" title="GitHub">
+        <Icon name="i-lucide:github" />
+      </a>
+    </Button>
   </nav>
 </template>

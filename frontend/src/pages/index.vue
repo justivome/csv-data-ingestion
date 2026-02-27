@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Button } from '~/components/ui/button'
+
 defineOptions({
   name: 'IndexPage',
 })
@@ -21,7 +23,7 @@ useHead({
 <template>
   <div>
     <div text-4xl>
-      <div i-carbon-campsite inline-block />
+      <Icon name="i-lucide:mountain" />
     </div>
     <p>
       <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
@@ -43,14 +45,10 @@ useHead({
     />
     <label class="hidden" for="input">What's your name?</label>
 
-    <div>
-      <button
-        text-sm btn m-3
-        :disabled="!name"
-        @click="go"
-      >
+    <div mt-3>
+      <Button class="w-full" :disabled="!name" @click="go">
         Go
-      </button>
+      </Button>
     </div>
   </div>
 </template>
