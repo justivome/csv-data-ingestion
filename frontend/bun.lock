@@ -5,10 +5,14 @@
     "": {
       "name": "frontend",
       "dependencies": {
+        "@pinia/colada": "^0.21.6",
+        "@pinia/colada-plugin-auto-refetch": "^0.2.4",
+        "@pinia/colada-plugin-retry": "^0.2.3",
         "@unhead/vue": "^2.1.9",
         "@vueuse/core": "^14.2.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "ofetch": "^1.5.1",
         "pinia": "^3.0.4",
         "radix-vue": "^1.9.17",
         "reka-ui": "^2.8.2",
@@ -303,6 +307,12 @@
     "@oxfmt/binding-win32-ia32-msvc": ["@oxfmt/binding-win32-ia32-msvc@0.35.0", "", { "os": "win32", "cpu": "ia32" }, "sha512-oSRD2k8J2uxYDEKR2nAE/YTY9PobOEnhZgCmspHu0+yBQ665yH8lFErQVSTE7fcGJmJp/cC6322/gc8VFuQf7g=="],
 
     "@oxfmt/binding-win32-x64-msvc": ["@oxfmt/binding-win32-x64-msvc@0.35.0", "", { "os": "win32", "cpu": "x64" }, "sha512-WCDJjlS95NboR0ugI2BEwzt1tYvRDorDRM9Lvctls1SLyKYuNRCyrPwp1urUPFBnwgBNn9p2/gnmo7gFMySRoQ=="],
+
+    "@pinia/colada": ["@pinia/colada@0.21.6", "", { "peerDependencies": { "pinia": "^2.2.6 || ^3.0.0", "vue": "^3.5.17" } }, "sha512-DppfAYky3Uavlpdx2iZHgd/+ZVPyBGTR+x+kFfAUz8h9l1DIQgf2cw/QZg0RZ4GAUNnKf6Ue6FzfWttwqhZXUQ=="],
+
+    "@pinia/colada-plugin-auto-refetch": ["@pinia/colada-plugin-auto-refetch@0.2.4", "", { "peerDependencies": { "@pinia/colada": ">=0.17.7" } }, "sha512-+/XTIX+7gaRt6vXyqAyXDjujjVU+EyHM3851zdlD/qsoHjt9V5VgjOPnUWwtAwHjipd5jfkCoDN3uyVEsxiOqA=="],
+
+    "@pinia/colada-plugin-retry": ["@pinia/colada-plugin-retry@0.2.3", "", { "peerDependencies": { "@pinia/colada": ">=0.21.6" } }, "sha512-i727nGucdWwTFL9x2znZ0MclgURs5Oqyr3PG68YwMks0KR3DXqZcKkrATjE1EicAPz5HAwTx7kmP946Ee6XxVA=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 
