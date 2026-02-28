@@ -56,7 +56,7 @@ describe('dataTable', () => {
         records: mockRecords,
         total: 1,
         page: 1,
-        pageSize: 15,
+        pageSize: 10,
         sortBy: 'id',
         sortOrder: 'asc' as const,
       },
@@ -73,13 +73,13 @@ describe('dataTable', () => {
         records: mockRecords,
         total: 50,
         page: 1,
-        pageSize: 15,
+        pageSize: 10,
         sortBy: 'id',
         sortOrder: 'asc' as const,
       },
       global: { stubs },
     })
-    expect(wrapper.text()).toContain('Page 1 of 4')
+    expect(wrapper.text()).toContain('1 / 5')
     expect(wrapper.text()).toContain('Previous')
     expect(wrapper.text()).toContain('Next')
   })

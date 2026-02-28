@@ -7,7 +7,7 @@
     "dev": "bunx --bun vite",
     "build": "bun run type-check && bun run build-only",
     "preview": "bunx --bun vite preview",
-    "test:unit": "bunx --bun vitest",
+    "test": "bunx --bun vitest",
     "build-only": "bunx --bun vite build",
     "type-check": "bunx --bun vue-tsc --build",
     "lint": "bunx --bun eslint .",
