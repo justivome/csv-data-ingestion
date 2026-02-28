@@ -1,6 +1,9 @@
 {
     "python.venvPath": "backend/.venv",
     "python.defaultInterpreterPath": "backend/.venv/bin/python",
+    "ruff.enable": true,
+    "ruff.lint.enable": true,
+    "ruff.organizeImports": true,
     // Default templates for Nuxtr exetension
     "nuxtr.vueFiles.pages.defaultTemplate": "default.page-template",
     "nuxtr.vueFiles.script.type": "setup",
@@ -11,6 +14,7 @@
     "nuxtr.defaultPackageManager": "Bun",
     "nuxtr.vueFiles.layouts.defaultTemplate": "default.layout-template",
     "auto-close-tag.SublimeText3Mode": true,
+    "todo-tree.tree.scanMode": "workspace",
     "todo-tree.highlights.useColourScheme": true,
     "todo-tree.highlights.defaultHighlight": {
         "icon": "alert",
@@ -127,5 +131,4 @@
         "jsonc",
         "yaml"
     ],
-    "todo-tree.tree.scanMode": "workspace",
 }
