@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isDark, toggleDark } from '~/composables/dark'
+
 const auth = useAuthStore()
 const router = useRouter()
 
@@ -53,6 +55,11 @@ function logout() {
           </div>
         </div>
       </DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem @click="toggleDark()">
+        <Icon :name="isDark ? 'i-lucide:sun' : 'i-lucide:moon'" />
+        {{ isDark ? 'Light mode' : 'Dark mode' }}
+      </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click="logout">
         <Icon name="i-lucide:log-out" />
