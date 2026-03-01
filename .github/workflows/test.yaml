@@ -28,13 +28,13 @@ jobs:
       - name: Run Ruff (linting)
         run: |
           cd backend
-          . .venv/bin/activate
+          source .venv/bin/activate
           ruff check app tests
 
       - name: Run Ruff (formatting check)
         run: |
           cd backend
-          . .venv/bin/activate
+          source .venv/bin/activate
           ruff format --check app tests
 
       - name: Set up Bun
@@ -100,7 +100,7 @@ jobs:
           POSTGRES_PORT: 5432
         run: |
           cd backend
-          . .venv/bin/activate
+          source .venv/bin/activate
           alembic upgrade head
 
       - name: Run tests
@@ -113,7 +113,7 @@ jobs:
           SECRET_KEY: test-secret-key
         run: |
           cd backend
-          . .venv/bin/activate
+          source .venv/bin/activate
           pytest -v
 
   frontend-tests:
