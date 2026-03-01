@@ -28,9 +28,7 @@ REQUIRED_COLUMNS = [
 NUMERIC_COLUMNS = ["QUANTITYORDERED", "PRICEEACH", "SALES", "MSRP"]
 
 
-def process_csv(
-    file_bytes: bytes, user_id: int, filename: str, session: Session
-) -> dict:
+def process_csv(file_bytes: bytes, user_id: int, filename: str, session: Session) -> dict:
     # --- Extract ---
     df = pd.read_csv(BytesIO(file_bytes), encoding="latin-1")
 

@@ -4,11 +4,14 @@ SAMPLE_CSV_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "example",
 
 
 def _register_and_get_token(client, email="test@example.com"):
-    res = client.post("/api/register", json={
-        "name": "Test User",
-        "email": email,
-        "password": "password123",
-    })
+    res = client.post(
+        "/api/register",
+        json={
+            "name": "Test User",
+            "email": email,
+            "password": "password123",
+        },
+    )
     return res.json()["access_token"]
 
 
