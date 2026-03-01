@@ -5,10 +5,6 @@ export default antfu(
   {
     unocss: true,
     formatters: true,
-  },
-  {
-    rules: {
-      'markdown/heading-increment': 'off',
-    },
+    ignores: ['README.md'],
   },
 )
