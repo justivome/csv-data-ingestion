@@ -1,216 +1,586 @@
-<p align='center'>
-  <img src='https://user-images.githubusercontent.com/11247099/154486817-f86b8f20-5463-4122-b6e9-930622e757f2.png' alt='Vitesse - Opinionated Vite Starter Template' width='600'/>
-</p>
+# CSV Data Ingestion Frontend
 
-<p align='center'>
-Mocking up web app with <b>Vitesse</b><sup><em>(speed)</em></sup><br>
-</p>
+A modern Vue 3 + Vite web application for uploading, analyzing, and visualizing CSV data with an interactive dashboard.
 
-<br>
+## Table of Contents
 
-<p align='center'>
-<a href="https://vitesse.netlify.app/">Live Demo</a>
-</p>
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [Development](#development)
+- [Building](#building)
+- [Testing](#testing)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Assumptions](#assumptions)
 
-<br>
+## Prerequisites
 
-> **Note**: This template is created during the early transition of Vue 3 and Vite. At this moment, if you are seeking for better Vue developer experience and more consistent maintenance, we recommend using [Nuxt](https://nuxt.com) instead (it also works perfectly with SPA or SSG as needed). This template still serves as a reference, but expect slower updates.
+- **Bun 1.0+** (recommended package manager)
+  - [Bun Installation](https://bun.sh)
+- **Backend API** running at `http://localhost:8000` (for development)
 
-<br>
+## Setup
 
-<p align='center'>
-<b>English</b> | <a href="https://github.com/antfu-collective/vitesse/blob/main/README.zh-CN.md">简体中文</a>
-<!-- Contributors: Thanks for getting interested, however we DON'T accept new translations to the README, thanks. -->
-</p>
+### 1. Install Dependencies
 
-<br>
+Using Bun (recommended):
+
+```bash
+bun install
+```
+
+### 2. Configure API Connection
+
+The application connects to the backend API. By default, it expects:
+
+- **Development**: `http://localhost:8000`
+- **Production**: `/api` (proxied by web server)
+
+To change the API endpoint, update the configuration in `src/config/api.ts` or set environment variables.
+
+## Development
+
+### Start Dev Server
+
+```bash
+bun run dev
+```
+
+The application will open at `http://localhost:5173` with hot module replacement (HMR) enabled.
+
+### Development Features
+
+- **Fast Refresh**: Changes apply instantly without page reload
+- **Type Checking**: Vue TypeScript support with automatic checks
+- **Auto Imports**: Components and utilities are imported automatically
+- **Dev Tools**: Vue DevTools extension support for debugging
+
+## Building
+
+### Development Build
+
+```bash
+bun run build-only
+```
+
+Outputs to `dist/` directory.
+
+### Production Build
+
+Includes type checking and optimization:
+
+```bash
+bun run build
+```
+
+### Type Checking
+
+Check TypeScript types without building:
+
+```bash
+bun run type-check
+```
+
+### Preview Built App
+
+```bash
+bun run preview
+```
+
+Serves the production build locally at `http://localhost:4173`.
+
+## Testing
+
+### Run Tests
+
+```bash
+bun test
+```
+
+### Run Tests in Watch Mode
+
+```bash
+bun test -- --watch
+```
+
+### Run Tests with UI
+
+```bash
+bun test -- --ui
+```
+
+### Run Specific Test File
+
+```bash
+bun test test/unit/components.test.ts
+```
+
+### Test Coverage
+
+```bash
+bun test -- --coverage
+```
+
+### Test Structure
+
+Tests are organized by feature:
+
+```
+test/
+├── unit/
+│   ├── components.test.ts      # Component tests
+│   ├── stores.test.ts          # State management tests
+│   └── utils.test.ts           # Utility function tests
+└── e2e/                         # End-to-end tests (if configured)
+```
+
+## Linting
+
+### Run ESLint
+
+```bash
+bun run lint
+```
+
+### Fix Linting Issues
+
+```bash
+bun run lint:fix
+```
+
+## Project Structure
+
+```
+frontend/
+├── src/
+│   ├── pages/                  # File-based routing (auto-imported)
+│   │   ├── index.vue          # Home page
+│   │   ├── upload.vue         # CSV upload page
+│   │   ├── datasets/
+│   │   │   └── [id].vue       # Dataset detail page
+│   │   └── ...
+│   ├── components/             # Reusable Vue components
+│   │   ├── DataTable.vue      # Sortable, paginated data table
+│   │   ├── ChartCard.vue      # Chart visualization wrapper
+│   │   ├── UploadForm.vue     # CSV file upload form
+│   │   └── ...
+│   ├── stores/                 # Pinia state management
+│   │   ├── auth.ts            # Authentication state
+│   │   ├── datasets.ts        # Dataset management state
+│   │   └── ui.ts              # UI state (theme, modals, etc)
+│   ├── router/                 # Vue Router configuration
+│   │   └── index.ts           # Router setup
+│   ├── services/               # API service layer
+│   │   ├── api.ts             # Base API client
+│   │   ├── auth.ts            # Auth API calls
+│   │   └── datasets.ts        # Dataset API calls
+│   ├── composables/            # Reusable composition functions
+│   │   ├── useAuth.ts         # Authentication composable
+│   │   ├── useDatasets.ts     # Dataset operations composable
+│   │   └── ...
+│   ├── assets/                 # Static assets
+│   │   ├── styles/            # Global CSS/UnoCSS
+│   │   ├── images/
+│   │   └── ...
+│   ├── layouts/                # Layout components
+│   │   ├── default.vue        # Main layout
+│   │   └── ...
+│   ├── App.vue                # Root component
+│   └── main.ts                # Application entry point
+├── public/                      # Static files served as-is
+├── test/                        # Test files
+├── dist/                        # Production build output
+├── index.html                  # HTML entry point
+├── vite.config.ts              # Vite configuration
+├── tsconfig.json               # TypeScript configuration
+├── eslint.config.ts            # ESLint configuration
+├── uno.config.ts               # UnoCSS atomic CSS config
+├── components.json             # UI component metadata
+├── package.json                # Dependencies and scripts
+└── README.md                   # This file
+```
 
 ## Features
 
-- ⚡️ [Vue 3](https://github.com/vuejs/core), [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [esbuild](https://github.com/evanw/esbuild) - born with fastness
+### Core Functionality
 
-- 🗂 [File based routing](./src/pages)
+- **User Authentication**
+  - Register new account
+  - Login with email/password
+  - Token refresh and persistent sessions
+  - Logout
 
-- 📦 [Components auto importing](./src/components)
+- **CSV Upload & Management**
+  - Drag-and-drop CSV upload
+  - Progress indication
+  - File validation
+  - List uploaded datasets
+  - View dataset details
 
-- 🍍 [State Management via Pinia](https://pinia.vuejs.org/)
+- **Data Visualization & Analytics**
+  - Interactive data tables with sorting/filtering
+  - Summary statistics (min, max, mean, median)
+  - Chart visualizations (bar, line, pie charts)
+  - Column analysis (numeric and categorical)
+  - Responsive grid layout
 
-- 📑 [Layout system](./src/layouts)
+- **User Interface**
+  - Dark mode support
+  - Responsive design (mobile, tablet, desktop)
+  - Loading states and error messages
+  - Toast notifications
+  - Accessible components
 
-- 📲 [PWA](https://github.com/antfu/vite-plugin-pwa)
+### Technology Stack
 
-- 🎨 [UnoCSS](https://github.com/antfu/unocss) - the instant on-demand atomic CSS engine
+- **Framework**: Vue 3 with Composition API
+- **Build Tool**: Vite 7
+- **Package Manager**: Bun
+- **Language**: TypeScript 5.9
+- **State Management**: Pinia with Colada for server state
+- **Styling**: UnoCSS (atomic CSS)
+- **UI Components**: Radix Vue, Reka UI
+- **Tables**: TanStack Vue Table
+- **Charts**: Unovis Vue
+- **Testing**: Vitest
+- **Linting**: ESLint with @antfu/eslint-config
+- **HTTP Client**: ofetch (simple, modern fetch wrapper)
 
-- 😃 [Use icons from any icon sets with classes](https://github.com/antfu/unocss/tree/main/packages/preset-icons)
+## Configuration
 
-- 🌍 [I18n ready](./locales)
+### API Endpoint
 
-- 🔎 [Component Preview](https://github.com/johnsoncodehk/vite-plugin-vue-component-preview)
+The frontend connects to the backend API. Configure the endpoint:
 
-- 🗒 [Markdown Support](https://github.com/unplugin/unplugin-vue-markdown)
+**Development** (`vite.config.ts`):
 
-- 🔥 Use the [new `<script setup>` syntax](https://github.com/vuejs/rfcs/pull/227)
+```typescript
+server: {
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8000',
+      changeOrigin: true,
+    }
+  }
+}
+```
 
-- 📥 [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
+**Production** (`.nginx.conf`):
+Nginx proxies `/api` requests to the backend container.
 
-- 🖨 Static-site generation (SSG) via [vite-ssg](https://github.com/antfu/vite-ssg)
+### Environment Variables
 
-- 🦔 Critical CSS via [beasties](https://github.com/danielroe/beasties)
+Create `.env.local` for development:
 
-- 🦾 TypeScript, of course
+```
+VITE_API_URL=http://localhost:8000
+VITE_APP_TITLE=CSV Data Ingestion
+```
 
-- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest), E2E Testing with [Cypress](https://cypress.io/) on [GitHub Actions](https://github.com/features/actions)
+### Styling
 
-- ☁️ Deploy on Netlify, zero-config
+The application uses **UnoCSS** for utility-first CSS:
 
-<br>
+- Tailwind-like utility classes
+- CSS preset from `uno.config.ts`
+- Dark mode support via `presetDarkModeStrategySelector`
 
-## Pre-packed
+Apply dark mode:
 
-### UI Frameworks
-
-- [UnoCSS](https://github.com/antfu/unocss) - The instant on-demand atomic CSS engine.
+```html
+<div class="dark:bg-slate-900 bg-white">Content</div>
+```
 
 ### Icons
 
-- [Iconify](https://iconify.design) - use icons from any icon sets [🔍Icônes](https://icones.netlify.app/)
-- [Pure CSS Icons via UnoCSS](https://github.com/antfu/unocss/tree/main/packages/preset-icons)
+Icons are loaded from Iconify using the `@iconify-json/lucide` preset:
 
-### Plugins
-
-- [Vue Router](https://github.com/vuejs/router)
-  - [`unplugin-vue-router`](https://github.com/posva/unplugin-vue-router) - file system based routing
-  - [`vite-plugin-vue-layouts`](https://github.com/JohnCampionJr/vite-plugin-vue-layouts) - layouts for pages
-- [Pinia](https://pinia.vuejs.org) - Intuitive, type safe, light and flexible Store for Vue using the composition api
-- [`unplugin-vue-components`](https://github.com/antfu/unplugin-vue-components) - components auto import
-- [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import) - Directly use Vue Composition API and others without importing
-- [`unplugin-vue-macros`](https://github.com/sxzz/unplugin-vue-macros) - Explore and extend more macros and syntax sugar to Vue.
-- [`vite-plugin-pwa`](https://github.com/antfu/vite-plugin-pwa) - PWA
-- [`unplugin-vue-markdown`](https://github.com/unplugin/unplugin-vue-markdown) - Markdown as components / components in Markdown
-  - [`@shikijs/markdown-it`](https://github.com/shikijs/shiki) - [Shiki](https://github.com/shikijs/shiki) for syntax highlighting
-- [Vue I18n](https://github.com/intlify/vue-i18n-next) - Internationalization
-  - [`unplugin-vue-i18n`](https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n) - unplugin for Vue I18n
-- [VueUse](https://github.com/antfu/vueuse) - collection of useful composition APIs
-- [`vite-ssg-sitemap`](https://github.com/jbaubree/vite-ssg-sitemap) - Sitemap generator
-- [`@unhead/vue v2`](https://github.com/unjs/unhead) - manipulate document head reactively
-- [`vite-plugin-vue-devtools`](https://github.com/vuejs/devtools-next) - Designed to enhance the Vue developer experience.
-
-### Coding Style
-
-- Use Composition API with [`<script setup>` SFC syntax](https://github.com/vuejs/rfcs/pull/227)
-- [ESLint](https://eslint.org/) with [@antfu/eslint-config](https://github.com/antfu/eslint-config), single quotes, no semi.
-
-### Dev tools
-
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vitest](https://github.com/vitest-dev/vitest) - Unit testing powered by Vite
-- [Cypress](https://cypress.io/) - E2E testing
-- [pnpm](https://pnpm.js.org/) - fast, disk space efficient package manager
-- [`vite-ssg`](https://github.com/antfu/vite-ssg) - Static-site generation
-  - [beasties](https://github.com/danielroe/beasties) - Critical CSS
-- [Netlify](https://www.netlify.com/) - zero-config deployment
-- [VS Code Extensions](./.vscode/extensions.json)
-  - [Vite](https://marketplace.visualstudio.com/items?itemName=antfu.vite) - Fire up Vite server automatically
-  - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue 3 `<script setup>` IDE support
-  - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - Icon inline display and autocomplete
-  - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) - All in one i18n support
-  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-
-## Variations
-
-As this template is strongly opinionated, the following provides a curated list for community-maintained variations with different preferences and feature sets. Check them out as well. PR to add yours is also welcome!
-
-###### Official
-
-- [vitesse-lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse
-- [vitesse-nuxt3](https://github.com/antfu/vitesse-nuxt3) - Vitesse for Nuxt 3
-- [vitesse-nuxt-bridge](https://github.com/antfu/vitesse-nuxt-bridge) - Vitesse for Nuxt 2 with Bridge
-- [vitesse-webext](https://github.com/antfu/vitesse-webext) - WebExtension Vite starter template
-
-###### Community
-
-- [vitesse-ssr-template](https://github.com/frandiox/vitesse-ssr-template) by [@frandiox](https://github.com/frandiox) - Vitesse with SSR
-- [vitailse](https://github.com/zynth17/vitailse) by [@zynth17](https://github.com/zynth17) - Like Vitesse but with TailwindCSS
-- [vitesse-modernized-chrome-ext](https://github.com/xiaoluoboding/vitesse-modernized-chrome-ext) by [@xiaoluoboding](https://github.com/xiaoluoboding) - ⚡️ Modernized Chrome Extension Manifest V3 Vite Starter Template
-- [vitesse-stackter-clean-architect](https://github.com/shamscorner/vitesse-stackter-clean-architect) by [@shamscorner](https://github.com/shamscorner) - A modular clean architecture pattern in vitesse template
-- [vitesse-enterprise](https://github.com/FranciscoKloganB/vitesse-enterprise) by [@FranciscoKloganB](https://github.com/FranciscoKloganB) - Consistent coding styles regardless of team-size.
-- [vitecamp](https://github.com/nekobc1998923/vitecamp) by [@nekobc1998923](https://github.com/nekobc1998923) - Like Vitesse but without SSG/SSR/File based routing, includes Element Plus
-- [vitesse-h5](https://github.com/YunYouJun/vitesse-h5) by [@YunYouJun](https://github.com/YunYouJun) - Vitesse for Mobile
-- [bat](https://github.com/olgam4/bat) by [@olgam4](https://github.com/olgam4) - Vitesse for SolidJS
-- [vitesse-solid](https://github.com/xbmlz/vitesse-solid) by [@xbmlz](https://github.com/xbmlz) - Vitesse for SolidJS, build with [`SolidStart`](https://start.solidjs.com/), includes [UnoCSS](https://github.com/unocss/unocss).
-- [vue3-vant-mobile](https://github.com/easy-temps/vue3-vant-mobile) by [CharleeWa](https://github.com/CharleeWa) - Like Vitesse but without SSG/SSR, includes Vant
-
-## Try it now!
-
-> Vitesse requires Node >=14.18
-
-### GitHub Template
-
-[Create a repo from this template on GitHub](https://github.com/antfu-collective/vitesse/generate).
-
-### Clone to local
-
-If you prefer to do it manually with the cleaner git history
-
-```bash
-npx degit antfu-collective/vitesse my-vitesse-app
-cd my-vitesse-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
+```vue
+<i class="i-lucide-plus" />
 ```
 
-## Checklist
+Browse available icons: [Icônes](https://icones.netlify.app/)
 
-When you use this template, try follow the checklist to update your info properly
+## Docker Deployment
 
-- [ ] Change the author name in `LICENSE`
-- [ ] Change the title in `App.vue`
-- [ ] Change the hostname in `vite.config.ts`
-- [ ] Change the favicon in `public`
-- [ ] Remove the `.github` folder which contains the funding info
-- [ ] Clean up the READMEs and remove routes
-
-And, enjoy :)
-
-## Usage
-
-### Development
-
-Just run and visit http://localhost:3333
+### Build Image
 
 ```bash
-pnpm dev
+docker build -t csv-frontend .
 ```
 
-### Build
-
-To build the App, run
+### Run Container
 
 ```bash
-pnpm build
+docker run -p 8080:80 csv-frontend
 ```
 
-And you will see the generated file in `dist` that ready to be served.
+The Dockerfile builds the Vue app and serves it with Nginx.
 
-### Deploy on Netlify
+## Development Tips
 
-Go to [Netlify](https://app.netlify.com/start) and select your clone, `OK` along the way, and your App will be live in a minute.
+### Component Development
 
-### Docker Production Build
+1. Create component in `src/components/`
+2. Components are auto-imported (no need to import)
+3. Use `<script setup>` syntax for simplicity
 
-First, build the vitesse image by opening the terminal in the project's root directory.
+```vue
+<script setup lang="ts">
+const title = ref('Hello')
+</script>
+
+<template>
+  <div class="p-4">
+    <h1 class="text-2xl font-bold">
+      {{ title }}
+    </h1>
+  </div>
+</template>
+```
+
+### State Management
+
+Use Pinia stores for application state:
+
+```typescript
+// stores/counter.ts
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const increment = () => count.value++
+
+  return { count, increment }
+})
+```
+
+Use in components:
+
+```vue
+<script setup>
+const counter = useCounterStore()
+</script>
+
+<template>
+  <p>Count: {{ counter.count }}</p>
+  <button @click="counter.increment">
+    Increment
+  </button>
+</template>
+```
+
+### API Calls
+
+Use the service layer for API communication:
+
+```typescript
+// services/datasets.ts
+import { $fetch } from 'ofetch'
+
+export async function uploadDataset(file: File) {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  return $fetch('/api/datasets/upload', {
+    method: 'POST',
+    body: formData,
+  })
+}
+```
+
+### Composables
+
+Create reusable logic with composables:
+
+```typescript
+// composables/useDataset.ts
+export function useDataset(datasetId: string) {
+  const dataset = ref(null)
+  const loading = ref(false)
+
+  const fetch = async () => {
+    loading.value = true
+    dataset.value = await $fetch(`/api/datasets/${datasetId}`)
+    loading.value = false
+  }
+
+  onMounted(fetch)
+
+  return { dataset, loading, fetch }
+}
+```
+
+## Troubleshooting
+
+### Port Already in Use
 
 ```bash
-docker buildx build . -t vitesse:latest
+# Linux/Mac: Find process on port 5173
+lsof -i :5173
+
+# Kill process
+kill -9 <PID>
 ```
 
-Run the image and specify port mapping with the `-p` flag.
+### API Connection Errors
+
+1. Ensure backend is running: `http://localhost:8000/api/health`
+2. Check CORS configuration in backend
+3. Verify API URL in frontend config
+
+### Build Errors
 
 ```bash
-docker run --rm -it -p 8080:80 vitesse:latest
+# Clear cache and reinstall
+rm -rf node_modules dist .vite
+bun install
+bun run build
 ```
 
-## Why
+### Hot Module Replacement Not Working
 
-I have created several Vite apps recently. Setting the configs up is kinda the bottleneck for me to make the ideas simply come true within a very short time.
+1. Check Vite config has correct server setup
+2. Try restarting dev server
+3. Clear browser cache (Ctrl+Shift+Delete)
 
-So I made this starter template for myself to create apps more easily, along with some good practices that I have learned from making those apps. It's strongly opinionated, but feel free to tweak it or even maintain your own forks. [(see community maintained variation forks)](#variations)
+### Type Errors
+
+Run type check:
+
+```bash
+bun run type-check
+```
+
+Fix TypeScript errors:
+
+```bash
+bun run type-check -- --noEmit
+```
+
+## Performance Optimization
+
+### Production Build Analysis
+
+Analyze bundle size:
+
+```bash
+bun run build -- --analyze
+```
+
+### Lazy Loading Routes
+
+Routes are lazy-loaded by default via `vite-plugin-vue-layouts`.
+
+### Component Code Splitting
+
+Large components are automatically code-split by Vite.
+
+### Image Optimization
+
+Use modern formats:
+
+```vue
+<picture>
+  <source srcset="image.webp" type="image/webp">
+  <img src="image.png" alt="Description">
+</picture>
+```
+
+## Assumptions
+
+1. **Backend API**: The application expects the backend API to be available at:
+   - Development: `http://localhost:8000`
+   - Production: `/api` (proxied by web server)
+
+2. **Authentication**:
+   - Uses JWT tokens in HTTP-only cookies
+   - Token refresh is automatic via interceptor
+   - All protected endpoints require valid token
+
+3. **CSV Data**:
+   - Assumes well-formed CSV files with headers
+   - Column names are used as-is in UI
+   - Data is displayed as strings (type detection happens on backend)
+
+4. **Browser Support**:
+   - Modern browsers (Chrome, Firefox, Safari, Edge)
+   - ES2020+ JavaScript support required
+   - Local storage for session persistence
+
+5. **Screen Sizes**:
+   - Responsive design supports: 320px (mobile) to 2560px (4K)
+   - Mobile-first approach with breakpoints at 640px, 1024px, 1280px
+   - Touch-friendly component sizes for mobile
+
+6. **Performance**:
+   - Assumes reasonable network latency (100-500ms)
+   - Large datasets (>10,000 rows) may cause UI slowness
+   - Tables are paginated to 100 rows per page by default
+
+7. **User Permissions**:
+   - Users can only see/edit their own datasets
+   - Authentication tokens are user-specific
+   - No role-based access control (all authenticated users are equal)
+
+8. **Dark Mode**:
+   - Persisted in local storage
+   - Respects system preference on first visit
+   - Can be toggled via UI
+
+9. **Session Management**:
+   - Sessions persist across browser refresh
+   - Closing browser doesn't log out (token cleanup on logout)
+   - Tokens auto-refresh 5 minutes before expiration
+
+10. **Network Conditions**:
+    - Assumes relatively stable internet connection
+    - No offline mode support
+    - Slow uploads show progress indication
+
+## Deployment Checklist
+
+- [ ] Set correct API URL in production config
+- [ ] Update `vite.config.ts` proxy settings for production
+- [ ] Configure Nginx for serving static assets
+- [ ] Set secure CORS headers
+- [ ] Enable gzip compression
+- [ ] Set cache headers appropriately
+- [ ] Test dark mode functionality
+- [ ] Verify mobile responsiveness
+- [ ] Test authentication flow
+- [ ] Monitor bundle size
+
+## Browser DevTools
+
+### Vue DevTools
+
+Install [Vue DevTools Extension](https://devtools.vuejs.org/) for debugging:
+
+- Component inspection
+- Props/state monitoring
+- Event tracking
+- Timeline profiling
+
+### Vite Plugin Vue DevTools
+
+Built-in debugging available at `/__nuxt_devtools/` in development.
+
+## Contributing
+
+When adding features:
+
+1. Follow the existing file structure
+2. Use TypeScript for all new code
+3. Add tests for new functionality
+4. Update component documentation
+5. Test responsiveness on mobile
+
+## References
+
+- [Vue 3 Docs](https://vuejs.org/)
+- [Vite Docs](https://vitejs.dev/)
+- [Pinia Docs](https://pinia.vuejs.org/)
+- [UnoCSS Docs](https://unocss.dev/)
+- [Vitest Docs](https://vitest.dev/)
