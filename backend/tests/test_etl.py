@@ -59,6 +59,5 @@ def test_total_sales_calculation():
 
 def test_missing_columns_raises_error():
     csv_data = b"COL1,COL2\n1,2"
-    with Session(engine) as session:
-        with pytest.raises(ValueError, match="Missing required columns"):
-            process_csv(csv_data, user_id=1, filename="test.csv", session=session)
+    with Session(engine) as session, pytest.raises(ValueError, match="Missing required columns"):
+        process_csv(csv_data, user_id=1, filename="test.csv", session=session)
