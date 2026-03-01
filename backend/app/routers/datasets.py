@@ -37,7 +37,7 @@ def upload_csv(file: UploadFile, user: CurrentUserDep, session: SessionDep):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=str(e),
-        )
+        ) from e
 
     return result
 
@@ -57,7 +57,10 @@ def get_dataset(
     session: SessionDep,
     page: int = Query(1, ge=1),
     page_size: int = Query(15, ge=1, le=100),
-    sort_by: str = Query("id", pattern="^(id|order_number|order_date|sales|total_sales|customer_name|product_line|country|status)$"),
+    sort_by: str = Query(
+        "id",
+        pattern="^(id|order_number|order_date|sales|total_sales|customer_name|product_line|country|status)$",
+    ),
     sort_order: str = Query("asc", pattern="^(asc|desc)$"),
     status_filter: str | None = Query(None, alias="status"),
     product_line: str | None = None,
@@ -96,9 +99,7 @@ def get_dataset(
     records = session.exec(query.offset(offset).limit(page_size)).all()
 
     # Aggregates (over all records in dataset, not filtered)
-    all_records = session.exec(
-        select(SalesRecord).where(SalesRecord.dataset_id == dataset_id)
-    ).all()
+    all_records = session.exec(select(SalesRecord).where(SalesRecord.dataset_id == dataset_id)).all()
 
     sales_by_product_line: dict[str, float] = {}
     sales_by_country: dict[str, float] = {}
@@ -115,9 +116,7 @@ def get_dataset(
             month_key = r.order_date.strftime("%Y-%m")
             sales_by_month_map[month_key] = sales_by_month_map.get(month_key, 0) + r.total_sales
 
-    sales_by_month = [
-        SalesByMonth(month=k, total=v) for k, v in sorted(sales_by_month_map.items())
-    ]
+    sales_by_month = [SalesByMonth(month=k, total=v) for k, v in sorted(sales_by_month_map.items())]
 
     return DatasetDetailResponse(
         dataset=DatasetRead.model_validate(dataset),
@@ -144,9 +143,7 @@ def export_dataset(
     if not dataset or dataset.user_id != user.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dataset not found")
 
-    records = session.exec(
-        select(SalesRecord).where(SalesRecord.dataset_id == dataset_id)
-    ).all()
+    records = session.exec(select(SalesRecord).where(SalesRecord.dataset_id == dataset_id)).all()
 
     df = pd.DataFrame([r.model_dump() for r in records])
 
