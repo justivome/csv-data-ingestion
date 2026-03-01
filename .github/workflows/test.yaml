@@ -23,7 +23,7 @@ jobs:
       - name: Install backend dependencies
         run: |
           cd backend
-          uv sync
+          uv sync --all-extras
 
       - name: Run Ruff (linting)
         run: |
@@ -87,7 +87,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd backend
-          uv sync
+          uv sync --all-extras
 
       - name: Run migrations
         env:
