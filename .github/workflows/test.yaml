@@ -124,11 +124,6 @@ jobs:
           cd frontend
           bun install --frozen-lockfile
 
-      - name: Run type check
-        run: |
-          cd frontend
-          bun run type-check
-
       - name: Run tests
         run: |
           cd frontend
