@@ -21,10 +21,13 @@ setup-frontend: ## Setup frontend dependencies
 
 setup: migrate setup-backend setup-frontend ## Initial project setup (install dependencies, setup database)
 
-.PHONY: db backend frontend dev
+.PHONY: db db-stop backend frontend dev
 
 db: ## Start database container in detached mode
 	docker compose up db -d
+
+db-stop: ## Stop database container
+	docker compose stop db
 
 backend: ## Start dev server for backend
 	cd backend && \
@@ -40,20 +43,15 @@ dev: ## Start dev servers for all services
 	@$(MAKE) -f $(THIS_FILE) backend &
 	@$(MAKE) -f $(THIS_FILE) frontend
 
-
-.PHONY: stop-db stop
-
-stop-db: ## Stop database container
-	docker compose stop db
-
-stop: stop-db ## Stop all containers
-
-.PHONY: prod stop-prod
+.PHONY: prod prod-build prod-stop
 
 prod: ## Build and run production containers
 	docker compose -f compose.yaml up -d
 
-stop-prod: ## Stop production containers
+prod-build: ## Build production containers
+	docker compose -f compose.yaml build
+
+prod-stop: ## Stop production containers
 	docker compose -f compose.yaml down
 
 help: ## Show this help message
