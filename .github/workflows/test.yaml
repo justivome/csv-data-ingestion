@@ -28,14 +28,12 @@ jobs:
       - name: Run Ruff (linting)
         run: |
           cd backend
-          source .venv/bin/activate
-          ruff check app tests
+          uv run ruff check app tests
 
       - name: Run Ruff (formatting check)
         run: |
           cd backend
-          source .venv/bin/activate
-          ruff format --check app tests
+          uv run ruff format --check app tests
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
@@ -100,8 +98,7 @@ jobs:
           POSTGRES_PORT: 5432
         run: |
           cd backend
-          source .venv/bin/activate
-          alembic upgrade head
+          uv run alembic upgrade head
 
       - name: Run tests
         env:
@@ -113,8 +110,7 @@ jobs:
           SECRET_KEY: test-secret-key
         run: |
           cd backend
-          source .venv/bin/activate
-          pytest -v
+          uv run pytest -v
 
   frontend-tests:
     needs: lint
