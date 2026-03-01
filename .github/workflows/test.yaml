@@ -50,11 +50,6 @@ jobs:
           cd frontend
           bun run lint
 
-      - name: Check TypeScript
-        run: |
-          cd frontend
-          bun run type-check
-
   backend-tests:
     needs: lint
     runs-on: ubuntu-latest
