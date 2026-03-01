@@ -1,6 +1,8 @@
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.routers.auth import router as auth_router
+from app.routers.datasets import router as datasets_router
 
 app = FastAPI()
 
@@ -21,5 +23,8 @@ api_router = APIRouter(prefix="/api")
 def health_check() -> dict:
     return {"status": "healthy"}
 
+
+api_router.include_router(auth_router)
+api_router.include_router(datasets_router)
 
 app.include_router(api_router)
